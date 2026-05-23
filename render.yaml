@@ -1,0 +1,21 @@
+services:
+  - type: worker
+    name: zidanex-bot
+    env: node
+    buildCommand: cd bot && npm install
+    startCommand: cd bot && npm start
+    envVars:
+      - key: DISCORD_BOT_TOKEN
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: zidanex-db
+          property: connectionString
+      - key: NODE_VERSION
+        value: 20
+
+databases:
+  - name: zidanex-db
+    databaseName: zidanex_bot
+    user: zidanex
+    plan: free
